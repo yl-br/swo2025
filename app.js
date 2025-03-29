@@ -1,5 +1,6 @@
 const btn = document.getElementById("joinBtn");
 const container = document.getElementById("balloonContainer");
+const message = document.getElementById("message");
 
 function createBalloon() {
   const balloon = document.createElement("div");
@@ -21,6 +22,14 @@ function createBalloon() {
 }
 
 btn.addEventListener("click", () => {
+  // Start balloons
   const interval = setInterval(createBalloon, 100);
   setTimeout(() => clearInterval(interval), 3000);
+
+  // Show message
+  const randomNum = Math.floor(Math.random() * (7000 - 11 + 1)) + 11;
+  message.textContent = `אתה המצטרף מספר: ${randomNum}`;
+  setTimeout(() => {
+    message.textContent = '';
+  }, 2000);
 });

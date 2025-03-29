@@ -1,4 +1,3 @@
-/* Base styles */
 body {
   margin: 0;
   padding: 0;
@@ -8,20 +7,23 @@ body {
   direction: rtl;
 }
 
-/* Centered content */
 .container {
   text-align: center;
-  padding-top: 20vh;
+  padding-top: 15vh;
 }
 
-/* Title styling */
 .title {
   font-size: 60px;
   color: #333;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
-/* Button styling */
+.subtitle {
+  font-size: 24px;
+  color: #555;
+  margin: 5px 0;
+}
+
 #joinBtn {
   font-size: 26px;
   background-color: #e53935;
@@ -30,6 +32,7 @@ body {
   border-radius: 50px;
   padding: 15px 40px;
   cursor: pointer;
+  margin-top: 20px;
   transition: background-color 0.3s ease;
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
@@ -38,7 +41,14 @@ body {
   background-color: #c62828;
 }
 
-/* Balloon container */
+#message {
+  margin-top: 30px;
+  font-size: 28px;
+  color: #2e7d32;
+  font-weight: bold;
+  min-height: 40px;
+}
+
 #balloonContainer {
   position: fixed;
   top: 0;
@@ -48,7 +58,6 @@ body {
   pointer-events: none;
 }
 
-/* Balloons */
 .balloon {
   position: absolute;
   width: 40px;
@@ -59,7 +68,6 @@ body {
   animation: float 3s ease-in-out forwards;
 }
 
-/* Float animation */
 @keyframes float {
   0% {
     transform: translateY(100vh) translateX(0);
