@@ -1,6 +1,9 @@
 const btn = document.getElementById("joinBtn");
 const container = document.getElementById("balloonContainer");
 const message = document.getElementById("message");
+const emailInput = document.getElementById("emailInput");
+const sendBtn = document.getElementById("sendBtn");
+const airplaneContainer = document.getElementById("airplaneContainer");
 
 function createBalloon() {
   const balloon = document.createElement("div");
@@ -22,14 +25,64 @@ function createBalloon() {
 }
 
 btn.addEventListener("click", () => {
-  // Start balloons
   const interval = setInterval(createBalloon, 100);
   setTimeout(() => clearInterval(interval), 3000);
 
-  // Show message
   const randomNum = Math.floor(Math.random() * (7000 - 11 + 1)) + 11;
   message.textContent = `אתה המצטרף מספר: ${randomNum}`;
   setTimeout(() => {
     message.textContent = '';
   }, 2000);
+
+  emailInput.style.display = "inline-block";
+  sendBtn.style.display = "inline-block";
+
+  for (let i = 0; i < 5; i++) {
+    const plane = document.createElement("div");
+    plane.classList.add("airplane");
+    plane.style.top = `${50 + Math.random() * 20}%`;
+    plane.style.left = '-100px';
+    airplaneContainer.appendChild(plane);
+
+    setTimeout(() => plane.remove(), 5000);
+  }
+});
+
+sendBtn.addEventListener("click", () => {
+  const email = emailInput.value.trim();
+  if (!email || !email.includes('@')) {
+    alert("נא להזין כתובת אימייל חוקית");
+    return;
+  }
+
+  fetch('/submit-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("האימייל נשלח בהצלחה!");
+        emailInput.value = '';
+
+        // ✈️ Add 10 airplanes after email submit
+        for (let i = 0; i < 10; i++) {
+          const plane = document.createElement("div");
+          plane.classList.add("airplane");
+          plane.style.top = `${50 + Math.random() * 20}%`;
+          plane.style.left = '-100px';
+          airplaneContainer.appendChild(plane);
+
+          setTimeout(() => plane.remove(), 5000);
+        }
+
+      } else {
+        alert("שגיאה בשליחת האימייל");
+      }
+    })
+    .catch(err => {
+      console.error('Error sending email:', err);
+      alert("שגיאה בחיבור לשרת");
+    });
 });
