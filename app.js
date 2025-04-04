@@ -23,6 +23,17 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => balloon.remove(), 3000);
   }
 
+  function createMoney() {
+    const money = document.createElement("div");
+    money.classList.add("money");
+
+    const offset = `${Math.random() * 400 - 200}px`; // -200px to +200px
+    money.style.setProperty('--x-offset', offset);
+
+    document.body.appendChild(money);
+    setTimeout(() => money.remove(), 4000);
+  }
+
   btn.addEventListener("click", () => {
     const interval = setInterval(createBalloon, 100);
     setTimeout(() => clearInterval(interval), 3000);
@@ -34,14 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
     emailInput.style.display = "inline-block";
     sendBtn.style.display = "inline-block";
 
-    for (let i = 0; i < 5; i++) {
+    // Repeat airplanes every 3 seconds
+    setInterval(() => {
       const plane = document.createElement("div");
       plane.classList.add("airplane");
       plane.style.top = `${50 + Math.random() * 20}%`;
       plane.style.left = '-100px';
       airplaneContainer.appendChild(plane);
       setTimeout(() => plane.remove(), 5000);
-    }
+    }, 3000);
+
+    // Repeat money bills every 1 second
+    setInterval(() => {
+      createMoney();
+    }, 1000);
   });
 
   sendBtn.addEventListener("click", () => {
